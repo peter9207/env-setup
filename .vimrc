@@ -46,6 +46,7 @@ let g:tagbar_type_go = {
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 call plug#begin('~/.vim/plugged')
+  Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
   Plug 'shougo/neocomplete.vim'
   Plug 'jelera/vim-javascript-syntax'
   Plug 'marijnh/tern_for_vim'
@@ -57,9 +58,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar'
   Plug 'fatih/molokai'
   Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'scrooloose/nerdcommenter'
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 call plug#end()
+
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,bower_components,node_modules,public
 
@@ -204,8 +209,8 @@ augroup go
   autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
   autocmd Filetype go nmap <PageUp> :cprevious<CR>
   autocmd Filetype go nmap <PageDown> :cnext<CR>
-
   autocmd Filetype go colorscheme molokai
+  autocmd Filetype go nmap <C-/> :s/\%V^/\/\//g
 augroup END
 
 " build_go_files is a custom function that builds or compiles the test file.
